@@ -1,0 +1,9 @@
+*/modified_data/
+*/__pycache__/*
+**/logs
+**/venv
+archive.zip
+merged.csv
+**/etfs/*
+**/final_data/
+**/archive/
