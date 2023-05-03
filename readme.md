@@ -50,6 +50,6 @@ Basic Infra for futurestate to make application more efficient and faster.
 ### ToDo
 
 In future iteration features to add
--- logging & monitoring
--- exporatory analysis before model fiting
--- add standalone spark cluster make ETL job more faster
+ logging & monitoring <br>
+ exporatory analysis before model fiting <br>
+ add standalone spark cluster make ETL job more faster <br>
