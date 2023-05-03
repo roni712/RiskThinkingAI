@@ -41,6 +41,12 @@ The Prediction API would respond with a Json with the prediction like below.
 Possibly already running at https://roni712-potential-telegram-rr9xxvj7r49cw5wp-8000.preview.app.github.dev
 > This is in codespace and it has hosting limit for 4 hrs.
 
+## Infra
+
+Basic Infra for futurestate to make application more efficient and faster.
+<img src="infra.png">
+
+
 ### ToDo
 
 In future iteration features to add
