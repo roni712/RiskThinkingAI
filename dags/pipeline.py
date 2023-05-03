@@ -1,21 +1,15 @@
 from __future__ import annotations
 
-import datetime
-
 from airflow.decorators import dag, task
 
-import threading
 import pendulum
 import os
 import pandas as pd
-import dask.dataframe as dd
 
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.empty import EmptyOperator
-from pyarrow import csv, parquet
-import dask.dataframe as dd
 
 stocks_dir = "/opt/airflow/archive/stocks/"
 etfs_dir = "/opt/airflow/archive/etfs/"
@@ -96,7 +90,8 @@ with DAG(
         python_callable=modified_data,
         provide_context=True
     )
-   
+    
+    # making this task paralle
     @task
     def data_manupilation(list, s_name, dir):
         for names in list:
@@ -124,7 +119,7 @@ with DAG(
         bash_command=f"[ ! -d {final_data_path} ] &&  mkdir -p {final_data_path} ; {{ head -n 1 {dir_for_stats}A.csv ; tail -q -n +2 {dir_for_stats}*.csv ; }} > {final_data_path}stats_merged_file.csv"
     )  
 
-
+    # variables for writers
     in_path = f'{final_data_path}merged_file.csv'
     stats_in_path=f'{final_data_path}stats_merged_file.csv'
     data_manupilation_path = f'{final_data_path}converted_file.parquet'
@@ -137,8 +132,6 @@ with DAG(
         import pyarrow.parquet as pq
         import pyarrow.csv
 
-
-        
         writer = None
         with pyarrow.csv.open_csv(in_path) as reader:
             for next_chunk in reader:
@@ -152,14 +145,17 @@ with DAG(
         writer.close()
     
 
-    # [START howto_operator_bash]
+
     run_this = BashOperator(
         task_id="run_after_loop",
         bash_command=f"head /opt/airflow/archive/etfs/AAAU.csv",
     )
-    # [END howto_operator_bash]
 
-    run_this >> make_dir_result() >> [ data_manupilation(etfs_file_name, "ETFs",etfs_dir) , data_manupilation(first_half, "stocks", stocks_dir), data_manupilation(second_half, "stocks", stocks_dir) ] >> list_passing >> [ moving_avg_days('part1', dir_for_modified_data), moving_avg_days('part2', dir_for_modified_data), moving_avg_days('part3', dir_for_modified_data), moving_avg_days('part4', dir_for_modified_data) ,moving_avg_days('part5', dir_for_modified_data), moving_avg_days('part6', dir_for_modified_data) ] >>  merger_csv >> merger_csv_1  >> [ csv_to_parquet(in_path, data_manupilation_path) , csv_to_parquet(stats_in_path, stats_pq) ] >> print_head()
+    empty = EmptyOperator(
+        task_id="empty"
+    )
+
+    run_this >> make_dir_result() >> [ data_manupilation(etfs_file_name, "ETFs",etfs_dir) , data_manupilation(first_half, "stocks", stocks_dir), data_manupilation(second_half, "stocks", stocks_dir) ] >> list_passing >> [ moving_avg_days('part1', dir_for_modified_data), moving_avg_days('part2', dir_for_modified_data), moving_avg_days('part3', dir_for_modified_data), moving_avg_days('part4', dir_for_modified_data) ,moving_avg_days('part5', dir_for_modified_data), moving_avg_days('part6', dir_for_modified_data) ] >> empty >> [ merger_csv >> merger_csv_1 ] >> empty >> [ csv_to_parquet(in_path, data_manupilation_path) , csv_to_parquet(stats_in_path, stats_pq) ] >> print_head()
 
 
 if __name__ == "__main__":
