@@ -40,3 +40,10 @@ The Prediction API would respond with a Json with the prediction like below.
 
 Possibly already running at https://roni712-potential-telegram-rr9xxvj7r49cw5wp-8000.preview.app.github.dev
 > This is in codespace and it has hosting limit for 4 hrs.
+
+### ToDo
+
+In future iteration features to add
+-- logging & monitoring
+-- exporatory analysis before model fiting
+-- add standalone spark cluster make ETL job more faster
