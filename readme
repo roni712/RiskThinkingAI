@@ -1,0 +1,25 @@
+# Working assignment
+
+## Problem 1 and Problem 2
+
+Are sucesscfully executed on the airflow. However, due to time constrain, I had not us the desire infrastructure
+
+## Problem 3 
+
+This issue had been ran on pyspark container outside of airflow environment. It can be improved in future iteration
+
+## Problem 4
+> Use the command given below to run image of pyspark with jupyternotebook
+
+    docker run -it --rm -p 8888:8888 -p 8000:8000  -p 5000:5000 jupyter/pyspark-notebook
+
+> Upload `API.ipynb` or `api/app.py` to Docker via Notebook or other means.
+> Run the cells in `API.ipynb` or run the `python app.py`
+
+> make request to 
+>> <p>http://127.0.0.1:8000/predict?vol_moving_avg=*&adj_close_rolling_med=*</p>
+> with the input data
+
+The Prediction API would respond with a Json with the prediction like below.
+<img src="APIReqRes.png" />
+
