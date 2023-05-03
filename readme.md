@@ -2,7 +2,7 @@
 
 ## Problem 1 and Problem 2
 
-Are sucessfully executed on the airflow. However, due to time constrain, I was not able to implement it on the infrastucture I desired. Therefore, it can be run on more efficient infra and can be optmised to reduce pipeline execution time (Possibly by implementing parlell processing using spark jobs setc.)
+Are sucessfully executed on the airflow. However, due to time constrain and resources, I was not able to implement it on the infrastucture I desired. Therefore, it can be run on more efficient infra and can be optmised to reduce pipeline execution time (Possibly by implementing parlell processing using spark jobs setc.)
 <img src= "dag.png">
 
 ## Problem 3 
