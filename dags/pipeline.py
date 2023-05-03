@@ -155,7 +155,7 @@ with DAG(
         task_id="empty"
     )
 
-    run_this >> make_dir_result() >> [ data_manupilation(etfs_file_name, "ETFs",etfs_dir) , data_manupilation(first_half, "stocks", stocks_dir), data_manupilation(second_half, "stocks", stocks_dir) ] >> list_passing >> [ moving_avg_days('part1', dir_for_modified_data), moving_avg_days('part2', dir_for_modified_data), moving_avg_days('part3', dir_for_modified_data), moving_avg_days('part4', dir_for_modified_data) ,moving_avg_days('part5', dir_for_modified_data), moving_avg_days('part6', dir_for_modified_data) ] >> empty >> [ merger_csv >> merger_csv_1 ] >> empty >> [ csv_to_parquet(in_path, data_manupilation_path) , csv_to_parquet(stats_in_path, stats_pq) ] >> print_head()
+    run_this >> make_dir_result() >> [ data_manupilation(etfs_file_name, "ETFs",etfs_dir) , data_manupilation(first_half, "stocks", stocks_dir), data_manupilation(second_half, "stocks", stocks_dir) ] >> list_passing >> [ moving_avg_days('part1', dir_for_modified_data), moving_avg_days('part2', dir_for_modified_data), moving_avg_days('part3', dir_for_modified_data), moving_avg_days('part4', dir_for_modified_data) ,moving_avg_days('part5', dir_for_modified_data), moving_avg_days('part6', dir_for_modified_data) ] >> merger_csv >> merger_csv_1 >> empty >> [ csv_to_parquet(in_path, data_manupilation_path) , csv_to_parquet(stats_in_path, stats_pq) ] >> print_head()
 
 
 if __name__ == "__main__":
