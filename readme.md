@@ -38,8 +38,7 @@ The output of the model, which is a DataFrame of predicted values, is then conve
 The Prediction API would respond with a Json with the prediction like below.
 <img src="images/APIReqRes.png" />
 
-Possibly already running at https://roni712-potential-telegram-rr9xxvj7r49cw5wp-8000.preview.app.github.dev
-> This is in codespace and it has hosting limit for 4 hrs.
+> Sample Predictions from the API are in `requests.ipynb`
 
 ## Infra
 
