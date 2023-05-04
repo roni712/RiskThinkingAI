@@ -54,7 +54,7 @@ with DAG(
         list_length = len(modified_csv_names)
         # Calculate the size of each sublist
         sublist_size = list_length // 6
-        # Calculate the remainder of the list length divided by 4
+        # Calculate the remainder of the list length divided by 6
         remainder = list_length % 6
         # Divide the list into 4 sublists, with different sizes if necessary
 
@@ -90,8 +90,6 @@ with DAG(
         python_callable=modified_data,
         provide_context=True
     )
-    
-    # making this task paralle
     @task
     def data_manupilation(list, s_name, dir):
         for names in list:
@@ -155,7 +153,7 @@ with DAG(
         task_id="empty"
     )
 
-    run_this >> make_dir_result() >> [ data_manupilation(etfs_file_name, "ETFs",etfs_dir) , data_manupilation(first_half, "stocks", stocks_dir), data_manupilation(second_half, "stocks", stocks_dir) ] >> list_passing >> [ moving_avg_days('part1', dir_for_modified_data), moving_avg_days('part2', dir_for_modified_data), moving_avg_days('part3', dir_for_modified_data), moving_avg_days('part4', dir_for_modified_data) ,moving_avg_days('part5', dir_for_modified_data), moving_avg_days('part6', dir_for_modified_data) ] >> merger_csv >> merger_csv_1 >> empty >> [ csv_to_parquet(in_path, data_manupilation_path) , csv_to_parquet(stats_in_path, stats_pq) ] >> print_head()
+    run_this >> make_dir_result() >> [ data_manupilation(etfs_file_name, "ETFs",etfs_dir) , data_manupilation(first_half, "stocks", stocks_dir), data_manupilation(second_half, "stocks", stocks_dir) ] >> list_passing >> [ moving_avg_days('part1', dir_for_modified_data), moving_avg_days('part2', dir_for_modified_data), moving_avg_days('part3', dir_for_modified_data), moving_avg_days('part4', dir_for_modified_data) ,moving_avg_days('part5', dir_for_modified_data), moving_avg_days('part6', dir_for_modified_data) ] >> empty >> [ merger_csv, merger_csv_1 ] >> empty >> [ csv_to_parquet(in_path, data_manupilation_path) , csv_to_parquet(stats_in_path, stats_pq) ] >> print_head()
 
 
 if __name__ == "__main__":

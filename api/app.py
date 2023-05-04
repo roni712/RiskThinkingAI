@@ -7,13 +7,25 @@ from pyspark.ml.regression import RandomForestRegressionModel
 
 # Create a new SparkSession
 spark = SparkSession.builder.appName("FlaskApp").getOrCreate()
+print("Done creating Spark Session!")
+model = None
+
+def loadModel(modelPath=None):
+    global model
+    path = "savedModel/randomForestpredictionmodel/"
+    if modelPath:
+        path = modelPath
+    model = RandomForestRegressionModel.load(path)
+    print("Done loading Model!")
+
+# load model initially
+loadModel()
 
 # Prediction Function
 def predict_volume(input_data):
+    global model
+
     print(os.curdir)
-
-    model = RandomForestRegressionModel.load("savedModel/randomForestpredictionmodel/")
-
     # Assemble the features into a vector column
     assembler = VectorAssembler(inputCols=['vol_moving_avg', 'adj_close_rolling_med'], outputCol="features")
     input_data = assembler.transform(input_data)
@@ -45,7 +57,12 @@ def predict():
     output = {'predictions': predictions.select('prediction').collect()}
     return jsonify(output)
 
+@app.route('/loadNewModel')
+def loadModelApi():
+    request.args.post('modelPath')
+    loadModel()
+    return jsonify({"message":'App is healthy!'})
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8000)
 

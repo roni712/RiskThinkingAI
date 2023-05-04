@@ -64,7 +64,7 @@ x-airflow-common:
     - ./logs:/opt/airflow/logs
     - ./plugins:/opt/airflow/plugins
     - ./archive:/opt/airflow/archive
-    - ./spark:/opt/airflow/spark
+ 
   
 
   user: "${AIRFLOW_UID:-50000}:0"

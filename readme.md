@@ -3,7 +3,7 @@
 ## Problem 1 and Problem 2
 
 Are sucessfully executed on the airflow. However, due to time constrain and resources, I was not able to implement it on the infrastucture I desired. Therefore, it can be run on more efficient infra and can be optmised to reduce pipeline execution time (Possibly by implementing parlell processing using spark jobs setc.)
-<img src= "dag.png">
+<img src= "images/dag.png">
 
 ## Problem 3 
 Due to the same issue of limited resources, this problem is also solved by training the model on Juoyter Notebooks using PySpark. Although we did implemet a pipeline step, but it kept on going to timeout due to less resources, therefore I move towards trainig it on jupyter notebook.
@@ -36,7 +36,7 @@ The output of the model, which is a DataFrame of predicted values, is then conve
 > with the input data
 
 The Prediction API would respond with a Json with the prediction like below.
-<img src="APIReqRes.png" />
+<img src="images/APIReqRes.png" />
 
 Possibly already running at https://roni712-potential-telegram-rr9xxvj7r49cw5wp-8000.preview.app.github.dev
 > This is in codespace and it has hosting limit for 4 hrs.
@@ -44,7 +44,7 @@ Possibly already running at https://roni712-potential-telegram-rr9xxvj7r49cw5wp-
 ## Infra
 
 Basic Infra for futurestate to make application more efficient and faster.
-<img src="infra.png">
+<img src="images/infra.png">
 
 
 ### ToDo
