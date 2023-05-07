@@ -16,3 +16,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag airflow:0.0.1
+    - uses: actions/checkout@v3
+    - name: pushing to docker
+      run: docker push ronak0712/airflow_image:airflow:0.0.1
